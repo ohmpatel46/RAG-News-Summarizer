@@ -54,15 +54,21 @@ def create_table():
     connection.close()
     print("PostgreSQL table 'articles' created successfully!")
 
-def insert_article(title, author, description, content, published_at, url, source):
-    """Insert a single article into the PostgreSQL database."""
+def insert_article(title, author, description, content, published_at, url, source, embedding=None):
+    """Insert a single article into the PostgreSQL database, with optional embedding."""
     connection = get_connection()
     cursor = connection.cursor()
     
-    cursor.execute("""
-        INSERT INTO articles (title, author, description, content, published_at, url, source)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-    """, (title, author, description, content, published_at, url, source))
+    if embedding is not None:
+        cursor.execute("""
+            INSERT INTO articles (title, author, description, content, published_at, url, source, embedding)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (title, author, description, content, published_at, url, source, embedding))
+    else:
+        cursor.execute("""
+            INSERT INTO articles (title, author, description, content, published_at, url, source)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (title, author, description, content, published_at, url, source))
     
     connection.commit()
     cursor.close()

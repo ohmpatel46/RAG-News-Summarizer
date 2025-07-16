@@ -36,4 +36,5 @@ dependencies:
       - requests-toolbelt==1.0.0
       - sqlalchemy==2.0.36
       - yarl==1.17.2
+      - sentence-transformers
 prefix: C:\Users\ohmpa\miniconda3\envs\RAG_news_summarizer
